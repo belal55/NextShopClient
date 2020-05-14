@@ -1,0 +1,50 @@
+.btn-app{
+	height: 40px;
+	min-width: 45px;
+	margin-right: 25px;
+}
+
+.btn-app i{
+	margin-top: -5px;
+}
+
+.custom-bg{
+	background: #11A0DB;
+	color: #fff;
+}
+
+.custom-bg a {
+	color: #fff;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+.dropdown-item{
+	color: #000 !important;
+	text-transform: uppercase !important;
+	padding: 15px 15px;
+}
+
+.dropdown-item:hover{
+	background: darkgray;
+}
+
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+.dropdown-menu{
+	margin-top: 0px;
+}
+
+nav{
+	padding: 0;
+}
+
+.navbar-nav .nav-link {
+	padding: 20px 10px;
+}
+
+.navbar-nav .nav-link:hover {
+	background-color:cyan;
+}

@@ -1,0 +1,55 @@
+<div class="header content">
+	<div class="container" style="padding: 30px 0;">
+		<div class="row">
+			<div class="col-md-3"><h1 class="text-center">Next Shop</h1></div>
+			<div class="col-md-6">
+				<input type="text" class="form-control" (keyup)="searchProduct($event.target.value)" placeholder="Search products here...">
+			</div>
+			<div class="col-md-3">
+				<span>
+					<a class="btn btn-app " routerLink="/cart">
+						<span class="badge bg-teal">{{homeService.totalProduct}}</span>
+						<i class="fas fa-cart-plus"></i>
+					</a>
+				</span>
+				<span *ngIf="homeService.loggedUser.email"><a routerLink="/dashboard">{{homeService.loggedUser.email}}</a></span>
+				<span *ngIf="!homeService.loggedUser.email"><a routerLink="/login">Login</a></span>
+				<span class=""> | </span>
+				<span *ngIf="!homeService.loggedUser.email"><a routerLink="/register">Register</a></span>
+				<span *ngIf="homeService.loggedUser.email"><a (click)="logout();">Logout</a></span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<nav class="navbar navbar-expand-lg custom-bg">
+	<div class="container">
+		<div class="row">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			  </button>
+			
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+				  <li class="nav-item active">
+					<a class="nav-link" (click)="goToHome()">Home <span class="sr-only">(current)</span></a>
+				  </li>
+				  <!-- <li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				  </li> -->
+				  <li *ngFor="let c of categories" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false" (click)="filterProductsByCategoryOrSubCategory(c.id,true)">
+					  {{c.name}}
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					  <a *ngFor="let sc of c.subcategory_set" class="dropdown-item" (click)="filterProductsByCategoryOrSubCategory(sc.id,false)">{{sc.name}}</a>
+					</div>
+				  </li>
+				</ul>
+			  </div>
+		</div>
+	</div>
+	
+  </nav>
+
+  <router-outlet></router-outlet>

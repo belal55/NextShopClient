@@ -1,0 +1,82 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">User</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+              <li class="breadcrumb-item active">User</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+		<div class="row">
+			
+			<div class="col-md-12">
+				<div class="card card-body">
+					<mat-form-field>
+						<mat-label>Filter</mat-label>
+						<input matInput (keyup)="applyFilter($event)" placeholder="Ex. Electronics">
+					</mat-form-field>
+					<div class="mat-elevation-z8 ">
+						<table mat-table [dataSource]="dataSource" matSort  class="w-100">
+						  
+							<!-- Position Column -->
+							<ng-container matColumnDef="id">
+							  <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+							  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+							</ng-container>
+						  
+							<!-- Name Column -->
+							<ng-container matColumnDef="email">
+							  <th mat-header-cell *matHeaderCellDef mat-sort-header> email </th>
+							  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+							</ng-container>
+
+							<ng-container matColumnDef="first_name">
+								<th mat-header-cell *matHeaderCellDef mat-sort-header> first_name </th>
+								<td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
+							  </ng-container>
+
+							  <ng-container matColumnDef="last_name">
+								<th mat-header-cell *matHeaderCellDef mat-sort-header> last_name </th>
+								<td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
+							  </ng-container>
+
+							<!-- Name Column -->
+							<ng-container matColumnDef="actions">
+								<th mat-header-cell *matHeaderCellDef> Actions </th>
+								<td mat-cell *matCellDef="let element"> 
+									<button mat-mini-fab color="primary">
+										<mat-icon>edit</mat-icon>
+									</button>
+									<button mat-mini-fab color="warn" (click)="deleteUsers(element.id)" class="ml-1">
+										<mat-icon>delete</mat-icon>
+									</button>
+								</td>
+							  </ng-container>
+	
+							<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+							<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+						  </table>
+						  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+					</div>
+					
+		
+				</div>
+			</div>
+		</div>
+	  </div>
+	</section>
+</div>
+

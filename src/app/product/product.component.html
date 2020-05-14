@@ -1,0 +1,257 @@
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Product</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/admin">Home</a></li>
+              <li class="breadcrumb-item active">Product</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      	<div class="container-fluid">
+			<div class="row">
+
+				<div class="col-md-12">
+					<div class="card card-body">
+						<div class="row">
+							
+							<div class="col-2">
+								<button mat-raised-button color="primary" data-toggle="modal" data-target="#myModal" (click)="showModal()">Add New</button>
+							</div>
+							<div class="col-md-10">
+								<mat-form-field class="w-100">
+									<mat-label>Filter</mat-label>
+									<input matInput (keyup)="applyFilter($event)" placeholder="Ex. iphone 11" class="w-100">
+								</mat-form-field>
+							</div>
+							<div class="col-12">
+								<div class="mat-elevation-z8 ">
+									<table mat-table [dataSource]="dataSource" matSort  class="w-100">
+			
+										<!--- Note that these columns can be defined in any order.
+											  The actual rendered columns are set as a property on the row definition" -->
+									  
+										<!-- Position Column -->
+										<ng-container matColumnDef="id">
+										  <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+										  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+										</ng-container>
+									  
+										<!-- Name Column -->
+										<ng-container matColumnDef="name">
+										  <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+										  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+										</ng-container>
+
+										<!-- Name Column -->
+										<ng-container matColumnDef="price">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+											<td mat-cell *matCellDef="let element"> {{element.price}} </td>
+										  </ng-container>
+										
+										  <!-- Name Column -->
+										<ng-container matColumnDef="stock">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
+											<td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+										</ng-container>
+										
+										<!-- Name Column -->
+										<ng-container matColumnDef="categoryName">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+											<td mat-cell *matCellDef="let element"> {{element.categoryName}} </td>
+										</ng-container>
+
+										<!-- Name Column -->
+										<ng-container matColumnDef="subCategoryName">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Sub CategoryName </th>
+											<td mat-cell *matCellDef="let element"> {{element.subCategoryName}} </td>
+										</ng-container>
+
+										<!-- Name Column -->
+										<ng-container matColumnDef="brandName">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
+											<td mat-cell *matCellDef="let element"> {{element.brandName}} </td>
+										</ng-container>
+			
+										<!-- Name Column -->
+										<ng-container matColumnDef="actions">
+											<th mat-header-cell *matHeaderCellDef> Actions </th>
+											<td mat-cell *matCellDef="let element"> 
+												<button mat-mini-fab color="primary" (click)="loadProduct(element,true)" >
+													<mat-icon>edit</mat-icon>
+												</button>
+												<button mat-mini-fab color="warn" (click)="deleteProducts(element.id)" class="ml-1">
+													<mat-icon>delete</mat-icon>
+												</button>
+											</td>
+										</ng-container>
+				
+										<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+										<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+									  </table>
+									  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- The Modal -->
+				<div class="modal fade" id="myModal">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+					
+							<!-- Modal Header -->
+							<div class="modal-header">
+							<h4 class="modal-title">Add New</h4>
+							<button type="button" class="close" (click)="hideModal()">&times;</button>
+							</div>
+							
+							<form #productForm="ngForm" autocomplete="off" (submit)="onSubmit(productForm)">	
+								<!-- Modal body -->
+								<div class="modal-body">
+									<nav>
+										<div class="nav nav-tabs" id="nav-tab" role="tablist">
+										<a class="nav-item nav-link active" id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic" aria-selected="true">Basic Info</a>
+										<a class="nav-item nav-link" id="nav-desc-tab" data-toggle="tab" href="#nav-desc" role="tab" aria-controls="nav-desc" aria-selected="false">Description</a>
+										<a class="nav-item nav-link" id="nav-spec-tab" data-toggle="tab" href="#nav-spec" role="tab" aria-controls="nav-spec" aria-selected="false">Specification</a>
+										<a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images" role="tab" aria-controls="nav-images" aria-selected="false">Addional Images</a>
+										</div>
+									</nav>
+									<div class="tab-content" id="nav-tabContent">
+										<div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
+											<div class="card card-body">		
+													<div class="row">
+														<div class="col-md-12">
+															<div class="form-group">
+																<label>Product Name</label>
+																<input type="text" name="name" #name="ngModel" [(ngModel)]="formData.name"  class="form-control" required>
+																<input type="hidden" name="id" #id="ngModel" [(ngModel)]="formData.id">
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Price</label>
+																<input type="text" name="price" #price="ngModel" [(ngModel)]="formData.price"  class="form-control" required>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Stock</label>
+																<input type="text" name="stock" #stock="ngModel" [(ngModel)]="formData.stock"  class="form-control" required>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>brand</label>
+																<select name="brand" id="brand" #brand="ngModel" [(ngModel)]="formData.brand" class="form-control" required>
+																	<option *ngFor="let ct of brands" value="{{ct.id}}">{{ct.name}}</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Category</label>
+																<select name="category" id="category" #category="ngModel" [(ngModel)]="formData.category" class="form-control" (change)="getFilteredSubCategories($event.target.value)" required >
+																	<option *ngFor="let ct of categories" value="{{ct.id}}">{{ct.name}}</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Sub Category</label>
+																<select name="subCategory" id="subCategory" #subCategory="ngModel" [(ngModel)]="formData.subCategory" class="form-control" required>
+																	<option *ngFor="let ct of FilteredSubCategories" value="{{ct.id}}">{{ct.name}}</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Upload Thumbnail</label>
+																<input type="file"  class="form-control"   (change)="onFileChanged($event); productForm.form.markAsDirty();">
+															</div>
+														</div>
+														<div class="col-md-12">
+															<img [src]="formData.thumbnail" height="200" *ngIf="formData.thumbnail">
+														</div>
+													</div>
+											</div>
+										</div>
+										<div class="tab-pane fade" id="nav-desc" role="tabpanel" aria-labelledby="nav-desc-tab">
+											<div class="card card-body">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Product Descriptions</label>
+															<!-- <textarea name="description" #description="ngModel" [(ngModel)]="formData.description"  class="form-control" rows="5"></textarea> -->
+															<angular-editor [config]="editorConfig" [placeholder]="'Enter text here...'" name="description" #description="ngModel" [(ngModel)]="formData.description"></angular-editor>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane fade" id="nav-spec" role="tabpanel" aria-labelledby="nav-spec-tab">
+											<div class="card card-body">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group">
+															<label>Product Specification</label>
+															<!-- <textarea name="description" #description="ngModel" [(ngModel)]="formData.description"  class="form-control" rows="5"></textarea> -->
+															<angular-editor [config]="editorConfig" [placeholder]="'Enter text here...'" name="specification" #specification="ngModel" [(ngModel)]="formData.specification"></angular-editor>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane fade" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
+											<div class="card card-body">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="dropzone">
+															<img src="../../assets/images/upload.svg" class="upload-icon" />
+															<input type="file"   class="upload-input" (change)="onFileChangedChildImg($event); productForm.form.markAsDirty();" multiple />
+															<h4 class="text-center" id="browseImgText">Browse images to upload...</h4>
+														</div>
+													</div>
+													
+													<div class="col-md-12">
+														<div *ngIf="formData.productimage_set" class="row">
+															<div class="col-md-3" *ngFor="let img of formData.productimage_set">
+																<div id="imgDel"><a (click)="deleteProductImage(img.id)" style="cursor: pointer;">X</a></div>
+																<img [src]="img.image" height="100"width="150" class="img-responsive" style="border:2px solid aqua;" >
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									
+									<button class="btn btn-success"  type="submit" [disabled]="!productForm.form.valid || !productForm.dirty">Submit</button>
+									<button class="btn btn-danger" (click)="clearForm(productForm)"  type="button" [disabled]="!productForm.form.dirty" id="clearFormBtn">Clear</button>
+									<button type="button" class="btn btn-danger" (click)="hideModal()">Close</button>
+							
+								</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		  </div>
+	</section>
+</div>

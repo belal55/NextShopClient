@@ -1,0 +1,70 @@
+<div class="w-100 h-100 loginbg">
+    <div class="row  d-flex h-100">
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-8 col-12 align-self-center w-100 mx-auto">
+            <form autocomplete="off" #registerForm="ngForm" (submit)="onSubmit(registerForm)">
+            <div class="card align-self-center" style="max-width: 100%;">
+                <div class="card-header bg-transparent">
+                    <p class="text-center font-weight-bold LoginTitle ">Register</p>
+                </div>
+                <div class="card-body">
+                  
+					<div class="form-group">
+						<label>Email</label>
+						<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text" [ngClass]="(email.invalid)?'text-danger':'text-success'"><i class="fa fa-user"></i></span>
+						</div>
+						<input type="text" class="form-control shadow-none" name="email" #email="ngModel" [(ngModel)]="formData.email" required>
+						</div>
+						<div class="text-danger text-center"  *ngIf="email.errors?.required && email.touched" >Email is requred.</div>
+					</div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" [ngClass]="(password.invalid)?'text-danger':'text-success'"><i class="fa fa-lock"></i></span>
+                           </div>
+                           <input type="password" class="form-control shadow-none" name="password" #password="ngModel" [(ngModel)]="formData.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                         </div>
+						 <div class="text-danger text-center"  *ngIf="password.errors?.required && password.touched" >password is requred.</div>
+						 <div class="text-danger text-center" *ngIf="password.errors?.pattern"> Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.</div>
+					</div>
+					<div class="form-group">
+                        <label>Confirm Password</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" [ngClass]="(confirmPassword.invalid)?'text-danger':'text-success'"><i class="fa fa-lock"></i></span>
+                           </div>
+                           <input type="password" class="form-control shadow-none" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="formData.confirmPassword" pattern="{{ password.value }}" required>
+                         </div>
+                         <div class="text-danger text-center"  *ngIf="confirmPassword.errors?.required && confirmPassword.touched" >confirmPassword is requred.</div>
+                         <div class="text-danger text-center"  *ngIf="confirmPassword.errors?.pattern && confirmPassword.touched" >password mismatch!</div>
+                    </div>
+                </div>
+                <div class="card-footer text-right bg-transparent">
+                    <button class="btn btn-success btnlogin" type="submit" [disabled]="!registerForm.form.valid || !registerForm.dirty || confirmPassword.errors?.pattern">Sign Up</button>
+                    <p class="text-center mt-5">or register using</p>
+                    <div class="flex-c-m" id="socialDiv">
+						<a href="#" class="login100-social-item bg1">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+
+						<a href="#" class="login100-social-item bg2">
+							<i class="fab fa-twitter"></i>
+						</a>
+
+						<a href="#" class="login100-social-item bg3" >
+							<i class="fab fa-google"></i>
+						</a>
+                    </div>
+					<a routerLink="/login">back to login</a> |
+					<a routerLink="">Or back to home</a>
+                </div>
+            </div>
+              
+        </form>
+        </div>
+      </div>
+</div>
+
+

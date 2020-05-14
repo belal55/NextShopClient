@@ -1,0 +1,60 @@
+<div class="container">
+	<div class="row">
+
+		<div class="col-md-8">
+			<div class="card card-body" style="max-height: 800px; overflow-y:auto;">
+				<form autocomplete="off" #checkoutForm="ngForm" (submit)="onSubmit(checkoutForm)">
+					<div class="form-group col-md-12">
+						<label>Email</label>
+						<input type="text" class="form-control" name="email" #email="ngModel" [(ngModel)]="formData.email" required (change)="check_email($event.target.value);" required>
+					</div>
+					<div class="form-group col-md-12">
+						<label>First Name</label>
+						<input type="first_name" class="form-control" name="first_name" #first_name="ngModel" [(ngModel)]="formData.first_name" required>
+					</div>
+					<div class="form-group col-md-12">
+						<label>Last Name</label>
+						<input type="last_name" class="form-control" name="last_name" #last_name="ngModel" [(ngModel)]="formData.last_name">
+					</div>
+					<div class="form-group col-md-12">
+						<label>Phone Number</label>
+						<input type="mobile" class="form-control" name="mobile" #mobile="ngModel" [(ngModel)]="formData.mobile" required>
+					</div>
+					<div class="form-group col-md-12">
+						<label>Shipping Address</label>
+						<input type="address" class="form-control" name="address" #mobile="ngModel" [(ngModel)]="formData.address" required>
+					</div>
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-success" [disabled]="!checkoutForm.form.valid || !checkoutForm.dirty">Place Order</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card card-body">
+				<h3 class="text-center">Summery</h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<td>Sub Total:</td>
+							<td>{{subTotal}}</td>
+						</tr>
+						<tr>
+							<td>Discount:</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td>Delivery Charge:</td>
+							<td>60</td>
+						</tr>
+						<tr>
+							<td>Order Total:</td>
+							<td>{{orderTotal}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<button class="btn btn-success">Checkout</button>
+			</div>
+		</div>
+	</div>
+</div>

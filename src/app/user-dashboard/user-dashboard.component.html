@@ -1,0 +1,87 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="card card-body" style="padding: 0;">
+				<ul id="userLeftBar">
+					<li>Dashboard</li>
+					<li>Order</li>
+					<li>Profile</li>
+					<li>Settings</li>
+					<li>Logout</li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="col-md-10">
+			<div class="card card-body" style="max-height: 800px; overflow-y:auto;">
+				<div class="row" *ngIf="isNewUser">
+					<form #passwordConfigureForm="ngForm" autocomplete="off" (submit)="onSubmitPasswordConfigureForm(passwordConfigureForm)">
+						<div class="row">
+							<div class="col-12">
+								<p class="text-center text-red font-weight-bold">Please configure your password first!</p>
+							</div>
+							<div class="form-group col-12">
+								<label>Password</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+									  <span class="input-group-text" [ngClass]="(password.invalid)?'text-danger':'text-success'"><i class="fa fa-lock"></i></span>
+								   </div>
+								   <input type="password" class="form-control shadow-none" name="password" #password="ngModel" [(ngModel)]="formData.password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+								 </div>
+								 <div class="text-danger text-center"  *ngIf="password.errors?.required && password.touched" >password is requred.</div>
+								 <div class="text-danger text-center" *ngIf="password.errors?.pattern"> Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.</div>
+							</div>
+							<div class="form-group col-12">
+								<label>Confirm Password</label>
+								<div class="input-group">
+									<div class="input-group-prepend">
+									  <span class="input-group-text" [ngClass]="(confirmPassword.invalid)?'text-danger':'text-success'"><i class="fa fa-lock"></i></span>
+								   </div>
+								   <input type="password" class="form-control shadow-none" name="confirmPassword" #confirmPassword="ngModel" [(ngModel)]="formData.confirmPassword" pattern="{{ password.value }}" required>
+								 </div>
+								 <div class="text-danger text-center"  *ngIf="confirmPassword.errors?.required && confirmPassword.touched" >confirmPassword is requred.</div>
+								 <div class="text-danger text-center"  *ngIf="confirmPassword.errors?.pattern && confirmPassword.touched" >password mismatch!</div>
+							</div>
+							<div class="col-12 ">
+								<button class="btn btn-success float-right ml-1" type="submit" [disabled]="!passwordConfigureForm.form.valid || !passwordConfigureForm.dirty">Submit</button>
+								<button  class="btn btn-warning float-right" (click)="clearPasswordConfigureForm(passwordConfigureForm)"  type="button" [disabled]="!passwordConfigureForm.form.valid">Clear</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<p class="text-center font-weight-bold display-4">25</p>
+							</div>
+							<div class="card-footer bg-primary">
+								<p class="text-center font-weight-bold" style="font-size: 20px;">Total Order</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<p class="text-center font-weight-bold display-4">25</p>
+							</div>
+							<div class="card-footer bg-success">
+								<p class="text-center font-weight-bold" style="font-size: 20px;">Total Shipped</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card">
+							<div class="card-body">
+								<p class="text-center font-weight-bold display-4">25</p>
+							</div>
+							<div class="card-footer bg-warning">
+								<p class="text-center font-weight-bold" style="font-size: 20px;">Total Pending</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

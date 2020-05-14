@@ -1,0 +1,15 @@
+#userLeftBar{
+	margin: 0;
+	padding: 0;
+}
+
+#userLeftBar li{
+	list-style: none;
+	padding: 10px 50px;
+	border-bottom: 1px solid darkgray;
+}
+
+#userLeftBar li:hover{
+	background-color: darkgray;
+	cursor: pointer;
+}
